@@ -39,6 +39,7 @@ export function Header() {
       )}
       <h1 className="text-xl font-semibold font-headline text-foreground">ERP Central</h1>
       <div className="ml-auto flex items-center gap-4">
+        {/* Placeholder for language switcher - can be re-added if i18n is re-implemented */}
         <Button variant="ghost" size="icon" aria-label="Change language" disabled>
           <Globe className="h-5 w-5" />
         </Button>
@@ -47,3 +48,4 @@ export function Header() {
     </header>
   );
 }
+
