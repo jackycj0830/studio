@@ -79,8 +79,8 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-background">
-      {/* Bulletin Board Section */}
-      <div className="w-full md:w-2/5 lg:w-1/3 bg-muted/30 p-6 md:p-8 lg:p-10 flex flex-col gap-6 border-r border-border">
+      {/* Bulletin Board Section - Target 65% width */}
+      <div className="w-full md:w-2/3 bg-muted/30 p-6 md:p-8 lg:p-10 flex flex-col gap-6 border-r border-border">
         <div className="flex items-center gap-3 mb-4">
           <Megaphone className="h-8 w-8 text-primary" />
           <h2 className="text-2xl font-bold font-headline text-foreground">公司公告</h2>
@@ -106,8 +106,8 @@ export default function LoginPage() {
         </p>
       </div>
 
-      {/* Login Form Section */}
-      <div className="w-full md:w-3/5 lg:w-2/3 flex flex-col items-center justify-center p-6 md:p-8 lg:p-10">
+      {/* Login Form Section - Target 35% width */}
+      <div className="w-full md:w-1/3 flex flex-col items-center justify-center p-6 md:p-8 lg:p-10">
         <Card className="w-full max-w-md shadow-xl">
           <CardHeader className="space-y-1 text-center">
             <div className="flex justify-center mb-4">
