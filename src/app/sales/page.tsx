@@ -3,14 +3,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { getI18n } from '@/locales/server';
 
 export default async function SalesPage() {
-  const t = await getI18n();
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold font-headline">{t('sales.title')}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">Sales Management</h1>
         <Button>
           <PlusCircle className="mr-2 h-4 w-4" /> Add New Order
         </Button>

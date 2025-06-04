@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, UserPlus } from "lucide-react";
-import { getI18n } from '@/locales/server';
 
 const employees = [
   { id: 1, name: "Alice Wonderland", role: "Software Engineer", avatar: "https://placehold.co/100x100.png?text=AW", initial: "AW", dataAiHint: "woman portrait" },
@@ -16,11 +15,10 @@ const employees = [
 ];
 
 export default async function HRPage() {
-  const t = await getI18n();
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold font-headline">{t('hr.title')}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">Team Directory</h1>
         <Button>
           <UserPlus className="mr-2 h-4 w-4" /> Add Employee
         </Button>
