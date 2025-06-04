@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { AppLayout } from '@/components/layout/app-layout';
 import React from 'react';
+import { AuthProvider } from '@/context/auth-context'; // Import AuthProvider
 
 export const metadata: Metadata = {
   title: 'ERP Central',
@@ -24,8 +25,10 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <AppLayout>{children}</AppLayout>
-        <Toaster />
+        <AuthProvider> {/* Wrap with AuthProvider */}
+          <AppLayout>{children}</AppLayout>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
