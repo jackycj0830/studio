@@ -1,9 +1,9 @@
 
 'use client';
 
-import React from 'react'; // Removed useEffect, useState
-import { useChangeLocale, useCurrentLocale, useI18n } from '@/locales/client';
-import { i18nConfig, type Locale } from '@/locales/config';
+import type React from 'react';
+import type { Locale } from '@/locales/config';
+import { i18nConfig } from '@/locales/config';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,13 +13,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
 
-export function LanguageSwitcher() {
-  // Hooks are called now that the component is only rendered client-side after parent (Header) is mounted
-  // and dynamic import with ssr:false is used.
-  const changeLocale = useChangeLocale();
-  const currentLocale = useCurrentLocale();
-  const t = useI18n();
+interface LanguageSwitcherProps {
+  changeLocale: (locale: Locale) => void;
+  currentLocale: Locale;
+  t: (key: string) => string; // Basic type for the t function
+}
 
+export function LanguageSwitcher({ changeLocale, currentLocale, t }: LanguageSwitcherProps) {
   const languageNames: Record<Locale, string> = {
     en: t('language.english'),
     'zh-CN': t('language.simplifiedChinese'),

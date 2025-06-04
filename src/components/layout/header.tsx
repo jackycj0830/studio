@@ -3,14 +3,15 @@
 import { UserCircle, Globe } from 'lucide-react';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useI18n } from '@/locales/client';
+import { useI18n, useChangeLocale, useCurrentLocale } from '@/locales/client'; // Added useChangeLocale, useCurrentLocale
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
+import type { LanguageSwitcher as LanguageSwitcherType } from '@/components/language-switcher'; // Import type
 
-const LanguageSwitcher = dynamic(
-  () => import('@/components/language-switcher').then(mod => mod.LanguageSwitcher),
-  { 
+const LanguageSwitcherClient = dynamic(
+  () => import('@/components/language-switcher').then(mod => mod.LanguageSwitcher as typeof LanguageSwitcherType), // Cast for props
+  {
     ssr: false,
     loading: () => (
       <Button variant="ghost" size="icon" aria-label="Loading language options" disabled>
@@ -23,8 +24,11 @@ const LanguageSwitcher = dynamic(
 export function Header() {
   const isMobile = useIsMobile();
   const [mounted, setMounted] = useState(false);
-  // Call t hook unconditionally as per Rules of Hooks
+  
+  // Call all i18n hooks here, at the top level of Header
   const t = useI18n();
+  const changeLocale = useChangeLocale();
+  const currentLocale = useCurrentLocale();
 
   useEffect(() => {
     setMounted(true);
@@ -32,13 +36,11 @@ export function Header() {
 
   if (!mounted) {
     // Render a loading state or minimal header if not mounted
-    // This avoids using `t()` before i18n context might be fully ready
     return (
       <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-md md:px-6">
         {isMobile && (
            <SidebarTrigger />
         )}
-        {/* Placeholder title, as t() might not be ready */}
         <h1 className="text-xl font-semibold font-headline text-foreground">ERP Central</h1>
         <div className="ml-auto flex items-center gap-4">
           <Button variant="ghost" size="icon" aria-label="Change language (Loading)" disabled>
@@ -50,7 +52,7 @@ export function Header() {
     );
   }
 
-  // Now that mounted is true, we can safely use t() and render LanguageSwitcher
+  // Now that mounted is true, we can safely use t() and pass i18n props
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-md md:px-6">
       {isMobile && (
@@ -58,7 +60,11 @@ export function Header() {
       )}
       <h1 className="text-xl font-semibold font-headline text-foreground">{t('header.title')}</h1>
       <div className="ml-auto flex items-center gap-4">
-        <LanguageSwitcher />
+        <LanguageSwitcherClient 
+          t={t}
+          changeLocale={changeLocale}
+          currentLocale={currentLocale}
+        />
         <UserCircle className="h-8 w-8 text-muted-foreground" />
       </div>
     </header>
