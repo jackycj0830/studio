@@ -1,14 +1,17 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PackagePlus, Search, Move } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { getI18n } from '@/locales/server';
 
-export default function InventoryPage() {
+export default async function InventoryPage() {
+  const t = await getI18n();
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold font-headline">Inventory Control</h1>
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">{t('inventory.title')}</h1>
         <div className="flex gap-2">
           <Button variant="outline">
             <Move className="mr-2 h-4 w-4" /> Stock Transfer

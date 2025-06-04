@@ -1,12 +1,15 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, TrendingUp, Landmark as BankIcon } from "lucide-react"; // Renamed Landmark to BankIcon
+import { FileText, TrendingUp, Landmark as BankIcon } from "lucide-react"; 
 import Image from "next/image";
+import { getI18n } from '@/locales/server';
 
-export default function FinancePage() {
+export default async function FinancePage() {
+  const t = await getI18n();
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl md:text-3xl font-bold font-headline">Finance Reporting</h1>
+      <h1 className="text-2xl md:text-3xl font-bold font-headline">{t('finance.title')}</h1>
 
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="grid w-full grid-cols-1 md:grid-cols-3">

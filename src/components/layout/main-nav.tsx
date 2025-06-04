@@ -1,7 +1,8 @@
+
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation'; // from next/navigation
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -13,9 +14,13 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuBadge } from '@/components/ui/sidebar';
+import { useI18n, useCurrentLocale } from '@/locales/client';
+import type enMessages from '@/locales/en'; // For keyof
 
-interface NavItem {
-  title: string;
+type TranslationKeys = keyof typeof enMessages;
+
+interface NavItemConfig {
+  titleKey: TranslationKeys; // Use a specific key from your translation files
   href: string;
   icon: LucideIcon;
   label?: string;
@@ -23,34 +28,37 @@ interface NavItem {
   badge?: string;
 }
 
-const navItems: NavItem[] = [
-  { title: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { title: 'Sales', href: '/sales', icon: ShoppingBag },
-  { title: 'Procurement', href: '/procurement', icon: ShoppingCart },
-  { title: 'Inventory', href: '/inventory', icon: Archive },
-  { title: 'Finance', href: '/finance', icon: Landmark },
-  { title: 'Team Directory', href: '/hr', icon: Users },
-  { title: 'Smart Search', href: '/smart-search', icon: Search },
+const navItemConfigs: NavItemConfig[] = [
+  { titleKey: 'nav.dashboard', href: '/', icon: LayoutDashboard },
+  { titleKey: 'nav.sales', href: '/sales', icon: ShoppingBag },
+  { titleKey: 'nav.procurement', href: '/procurement', icon: ShoppingCart },
+  { titleKey: 'nav.inventory', href: '/inventory', icon: Archive },
+  { titleKey: 'nav.finance', href: '/finance', icon: Landmark },
+  { titleKey: 'nav.hr', href: '/hr', icon: Users },
+  { titleKey: 'nav.smartSearch', href: '/smart-search', icon: Search },
 ];
 
 export function MainNav() {
-  const pathname = usePathname();
+  const pathname = usePathname(); // According to next-international, this is locale-stripped
+  const t = useI18n();
+  const currentLocale = useCurrentLocale(); // Needed if Link hrefs require manual locale prefixing
 
   return (
     <nav className="flex flex-col p-2">
       <SidebarMenu>
-        {navItems.map((item) => (
+        {navItemConfigs.map((item) => (
           <SidebarMenuItem key={item.href} className="w-full">
+            {/* Next.js Link should automatically handle locale prefixing with middleware */}
             <Link href={item.href} legacyBehavior passHref>
               <SidebarMenuButton
                 className="w-full justify-start"
-                isActive={pathname === item.href}
-                tooltip={{ content: item.title, side: 'right' }}
+                isActive={pathname === item.href} // pathname from usePathname is locale-stripped
+                tooltip={{ content: t(item.titleKey), side: 'right' }}
                 disabled={item.disabled}
                 aria-disabled={item.disabled}
               >
                 <item.icon className="h-5 w-5" />
-                <span className="truncate">{item.title}</span>
+                <span className="truncate">{t(item.titleKey)}</span>
                 {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
               </SidebarMenuButton>
             </Link>
