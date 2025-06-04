@@ -14,7 +14,8 @@ import {
 import { Globe } from 'lucide-react';
 
 export function LanguageSwitcher() {
-  // Hooks are called now that the component is only rendered client-side after parent (Header) is mounted.
+  // Hooks are called now that the component is only rendered client-side after parent (Header) is mounted
+  // and dynamic import with ssr:false is used.
   const changeLocale = useChangeLocale();
   const currentLocale = useCurrentLocale();
   const t = useI18n();
@@ -46,4 +47,3 @@ export function LanguageSwitcher() {
     </DropdownMenu>
   );
 }
-

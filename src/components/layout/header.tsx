@@ -4,9 +4,21 @@ import { UserCircle, Globe } from 'lucide-react';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useI18n } from '@/locales/client';
-import { LanguageSwitcher } from '@/components/language-switcher';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import dynamic from 'next/dynamic';
+
+const LanguageSwitcher = dynamic(
+  () => import('@/components/language-switcher').then(mod => mod.LanguageSwitcher),
+  { 
+    ssr: false,
+    loading: () => (
+      <Button variant="ghost" size="icon" aria-label="Loading language options" disabled>
+        <Globe className="h-5 w-5" />
+      </Button>
+    )
+  }
+);
 
 export function Header() {
   const isMobile = useIsMobile();
