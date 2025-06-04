@@ -12,14 +12,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
+import { useChangeLocale, useCurrentLocale, useI18n } from '@/locales/client'; // Hooks called directly
 
-interface LanguageSwitcherProps {
-  changeLocale: (locale: Locale) => void;
-  currentLocale: Locale;
-  t: (key: string) => string; // Basic type for the t function
-}
+export function LanguageSwitcher() {
+  // Hooks are called now that the component is only rendered client-side
+  // via dynamic import with ssr:false and wrapped in Suspense.
+  const changeLocale = useChangeLocale();
+  const currentLocale = useCurrentLocale();
+  const t = useI18n();
 
-export function LanguageSwitcher({ changeLocale, currentLocale, t }: LanguageSwitcherProps) {
   const languageNames: Record<Locale, string> = {
     en: t('language.english'),
     'zh-CN': t('language.simplifiedChinese'),
@@ -47,3 +48,4 @@ export function LanguageSwitcher({ changeLocale, currentLocale, t }: LanguageSwi
     </DropdownMenu>
   );
 }
+
