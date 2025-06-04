@@ -14,7 +14,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuBadge } from '@/components/ui/sidebar';
-import { useI18n, useCurrentLocale } from '@/locales/client';
+import { useI18n } from '@/locales/client'; // Removed useCurrentLocale
 import type enMessages from '@/locales/en'; // For keyof
 
 type TranslationKeys = keyof typeof enMessages;
@@ -41,7 +41,7 @@ const navItemConfigs: NavItemConfig[] = [
 export function MainNav() {
   const pathname = usePathname(); // According to next-international, this is locale-stripped
   const t = useI18n();
-  const currentLocale = useCurrentLocale(); // Needed if Link hrefs require manual locale prefixing
+  // const currentLocale = useCurrentLocale(); // Removed this line
 
   return (
     <nav className="flex flex-col p-2">
