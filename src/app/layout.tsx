@@ -44,7 +44,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <I18nProviderClient locale={resolvedLocale}>
+        <I18nProviderClient locale={resolvedLocale} key={resolvedLocale}>
           <AppLayout>{children}</AppLayout>
           <Toaster />
         </I18nProviderClient>
