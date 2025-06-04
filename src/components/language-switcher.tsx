@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react'; // Removed useEffect, useState
 import { useChangeLocale, useCurrentLocale, useI18n } from '@/locales/client';
 import { i18nConfig, type Locale } from '@/locales/config';
 import { Button } from '@/components/ui/button';
@@ -14,29 +14,11 @@ import {
 import { Globe } from 'lucide-react';
 
 export function LanguageSwitcher() {
-  // All hooks are called at the top level, in the same order on every render.
-  const [mounted, setMounted] = useState(false);
+  // Hooks are called now that the component is only rendered client-side after parent (Header) is mounted.
   const changeLocale = useChangeLocale();
   const currentLocale = useCurrentLocale();
   const t = useI18n();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Render a placeholder if not mounted.
-    // Hooks above have already been called.
-    // Using a hardcoded aria-label as 't' function might not be fully ready for complex translations here,
-    // though for simple strings it might work if default locale is picked up.
-    return (
-      <Button variant="ghost" size="icon" aria-label="Change language (Loading)" disabled>
-        <Globe className="h-5 w-5" />
-      </Button>
-    );
-  }
-
-  // Now that we are mounted, we can safely use the values from the i18n hooks.
   const languageNames: Record<Locale, string> = {
     en: t('language.english'),
     'zh-CN': t('language.simplifiedChinese'),
@@ -64,3 +46,4 @@ export function LanguageSwitcher() {
     </DropdownMenu>
   );
 }
+
