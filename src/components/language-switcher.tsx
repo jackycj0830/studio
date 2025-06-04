@@ -1,8 +1,9 @@
 
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { useChangeLocale, useCurrentLocale, useI18n } from '@/locales/client';
-import { i18nConfig } from '@/locales/config';
+import { i18nConfig, type Locale } from '@/locales/config';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,9 +12,25 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
-import type { Locale } from '@/locales/config';
 
 export function LanguageSwitcher() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Render a disabled placeholder button before hooks are ready
+    // Using a hardcoded aria-label as 't' function is not available yet
+    return (
+      <Button variant="ghost" size="icon" aria-label="Change language" disabled>
+        <Globe className="h-5 w-5" />
+      </Button>
+    );
+  }
+
+  // Hooks are now called only after the component has mounted
   const changeLocale = useChangeLocale();
   const currentLocale = useCurrentLocale();
   const t = useI18n();
