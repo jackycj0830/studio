@@ -101,6 +101,9 @@ export default function LoginPage() {
             </Card>
           ))}
         </div>
+        <p className="text-xs text-muted-foreground mt-auto pt-4">
+          © {new Date().getFullYear()} ERP Central Inc. All rights reserved.
+        </p>
       </div>
 
       {/* Login Form Section - Target 35% width */}
@@ -110,8 +113,8 @@ export default function LoginPage() {
             <div className="flex justify-center mb-4">
               <Logotype />
             </div>
-            <CardTitle className="text-2xl font-bold font-headline">登入您的ERP帳戶</CardTitle>
-            <CardDescription>請輸入您的公司帳號和密碼</CardDescription>
+            <CardTitle className="text-2xl font-bold font-headline">登入您的帳戶</CardTitle>
+            <CardDescription>請輸入您的帳號和密碼以繼續</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
@@ -162,9 +165,6 @@ export default function LoginPage() {
           還沒有帳戶嗎？ <a href="#" className="underline hover:text-primary">註冊一個新帳戶</a>
         </p>
       </div>
-        <p align="center" className="text-xs text-muted-foreground mt-auto pt-4">
-          © {new Date().getFullYear()} ERP Central Inc. All rights reserved.<br/>Design By JackyZou<br/>
-        </p>
     </div>
   );
 }
