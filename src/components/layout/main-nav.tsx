@@ -15,6 +15,9 @@ import {
   Activity,
   Search,
   ShieldCheck, // Icon for Admin
+  Settings2, // Icon for Permissions
+  UserPlus, // Icon for Add Account
+  Users2, // Icon for View Accounts
   type LucideIcon,
 } from 'lucide-react';
 import {
@@ -29,6 +32,7 @@ interface SubNavItem {
   title: string;
   href: string;
   disabled?: boolean;
+  icon?: LucideIcon;
 }
 
 interface NavCycleConfig {
@@ -101,7 +105,7 @@ const navCycles: NavCycleConfig[] = [
   {
     id: 'payroll',
     title: '薪資循環',
-    icon: Users,
+    icon: Users, // Using the plural Users icon for the main cycle
     basePath: '/payroll',
     subItems: [
       { title: '員工薪資計算', href: '/payroll/salary-calculation' },
@@ -136,10 +140,13 @@ const adminNavCycle: NavCycleConfig = {
   icon: ShieldCheck,
   basePath: '/admin',
   subItems: [
+    { title: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { title: 'View Accounts', href: '/admin/accounts', icon: Users2 },
+    { title: 'Add New Account', href: '/admin/add-account', icon: UserPlus },
+    { title: 'Permissions', href: '/admin/permissions', icon: Settings2 },
     { title: 'View README', href: '/admin/view-document/readme' },
     { title: 'View Spec', href: '/admin/view-document/spec' },
     { title: 'View Todo List', href: '/admin/view-document/todolist' },
-    // Links for editing will be added later, or accessed from view pages
   ],
 };
 
@@ -204,6 +211,7 @@ export function MainNav() {
                         disabled={item.disabled}
                         aria-disabled={item.disabled}
                       >
+                        {item.icon && <item.icon className="h-4 w-4 mr-2 text-sidebar-foreground/70" />}
                         <span className="truncate">{item.title}</span>
                       </SidebarMenuButton>
                     </Link>
