@@ -1,6 +1,11 @@
 # ERP Central - Task List
 
-## Phase 1: Initial Setup & Core Structure (Completed)
+## 專案進度總覽
+**最後更新**: 2024-12-19
+**當前階段**: Phase 2 - 文檔管理與規格完善
+**完成度**: 約 35%
+
+## Phase 1: Initial Setup & Core Structure (✅ 已完成)
 - [x] Project Initialization (Next.js, TypeScript)
 - [x] UI Framework (ShadCN, TailwindCSS)
 - [x] Basic Layout (Sidebar, Header)
@@ -8,11 +13,18 @@
 - [x] Basic Client-Side Authentication (Login/Logout)
 - [x] Readme.md initial draft
 
-## Phase 2: Admin Document Management
+## Phase 2: Admin Document Management (🔄 進行中)
 - [x] Add `react-markdown` for displaying markdown.
 - [x] Create `spec.md` and `todolist.md` placeholders.
 - [x] Navigation for Admin Document Viewing.
 - [x] Implement viewing of `README.md`, `spec.md`, `todolist.md`.
+- [x] **完善 spec.md 規格文件**
+  - [x] 添加詳細的循序圖 (Sequence Diagrams)
+  - [x] 添加系統類別圖 (Class Diagrams)
+  - [x] 完善各模組的業務流程圖
+  - [x] 添加智能搜索流程圖
+  - [x] 添加會計科目架構圖
+- [x] **更新 todolist.md 任務進度**
 - [ ] Implement editing functionality for `README.md`.
 - [ ] Implement editing functionality for `spec.md`.
 - [ ] Implement editing functionality for `todolist.md`.
@@ -72,12 +84,33 @@
 - [ ] Improve UI/UX based on feedback.
 - [ ] Internationalization (i18n) - if revisited.
 - [ ] Deployment optimization.
-- [ ] Update `spec.md` with detailed flowcharts and sequence diagrams for each module.
+- [x] Update `spec.md` with detailed flowcharts and sequence diagrams for each module.
+
+## Phase 6: Documentation & GitHub Integration (🔄 進行中)
+- [x] **完善專案文檔**
+  - [x] 更新 spec.md 包含完整 UML 圖表
+  - [x] 更新 todolist.md 反映當前進度
+  - [x] 完善 README.md 專案描述
+- [ ] **提交文檔到 GitHub**
+  - [ ] 提交所有更新的文檔
+  - [ ] 創建詳細的 commit 訊息
+  - [ ] 推送到遠端倉庫
 
 ## Known Issues / Bugs
-- (List any known issues here)
+- 需要實現文檔編輯功能
+- 智能搜索功能需要 Google AI API 金鑰配置
+- 部分模組仍為佔位符頁面
 
 ## Future Ideas
 - Dashboard customizations.
 - Advanced reporting features.
 - Mobile responsiveness enhancements.
+- 實時協作編輯功能
+- 自動化測試部署流程
+
+## 開發注意事項
+1. **遵循 spec.md 開發**: 每次修改程式前都需確認 spec.md 規格
+2. **更新任務進度**: 任務完成後都需更新 todolist.md
+3. **代碼品質**: 保持代碼整潔，添加適當註釋
+4. **測試覆蓋**: 新功能需要編寫對應測試
+5. **文檔同步**: 功能變更時同步更新相關文檔
