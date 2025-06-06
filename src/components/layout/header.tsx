@@ -27,14 +27,14 @@ export function Header() {
           <Button variant="ghost" size="icon" aria-label="Change language" disabled>
             <Globe className="h-5 w-5 opacity-50" />
           </Button>
-          <UserCircle className="h-8 w-8 text-muted-foreground opacity-50" />
+          {/* UserCircle icon was here, now removed for loading state as well */}
         </div>
       </header>
     );
   }
 
   if (!isAuthenticated) {
-    return null;
+    return null; 
   }
 
   return (
@@ -53,7 +53,7 @@ export function Header() {
         <Button variant="ghost" size="icon" aria-label="Change language" disabled>
           <Globe className="h-5 w-5" />
         </Button>
-        <UserCircle className="h-8 w-8 text-muted-foreground" />
+        {/* <UserCircle className="h-8 w-8 text-muted-foreground" /> Removed UserCircle icon */}
         {isAuthenticated && (
           <Button variant="ghost" size="icon" aria-label="Logout" onClick={logout}>
             <LogOut className="h-5 w-5" />
