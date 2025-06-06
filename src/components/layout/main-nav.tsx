@@ -11,9 +11,10 @@ import {
   BookText,
   Calculator,
   Users,
-  Archive as FixedAssetsIcon, // Renamed for clarity
+  Archive as FixedAssetsIcon, 
   Activity,
   Search,
+  ShieldCheck, // Icon for Admin
   type LucideIcon,
 } from 'lucide-react';
 import {
@@ -22,7 +23,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar'; // Removed Sub components as Accordion handles nesting
+import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 
 interface SubNavItem {
   title: string;
@@ -35,7 +36,7 @@ interface NavCycleConfig {
   title: string;
   icon: LucideIcon;
   subItems: SubNavItem[];
-  basePath?: string; // Optional: for determining active state of accordion
+  basePath?: string; 
 }
 
 const navCycles: NavCycleConfig[] = [
@@ -129,6 +130,19 @@ const navCycles: NavCycleConfig[] = [
   },
 ];
 
+const adminNavCycle: NavCycleConfig = {
+  id: 'administrator',
+  title: 'Administrator',
+  icon: ShieldCheck,
+  basePath: '/admin',
+  subItems: [
+    { title: 'View README', href: '/admin/view-document/readme' },
+    { title: 'View Spec', href: '/admin/view-document/spec' },
+    { title: 'View Todo List', href: '/admin/view-document/todolist' },
+    // Links for editing will be added later, or accessed from view pages
+  ],
+};
+
 const topLevelNavItems: { title: string; href: string; icon: LucideIcon; disabled?: boolean }[] = [
   { title: '首頁', href: '/', icon: LayoutDashboard },
   { title: 'Smart Search', href: '/smart-search', icon: Search },
@@ -139,7 +153,11 @@ export function MainNav() {
   const pathname = usePathname();
 
   const getDefaultAccordionValues = () => {
-    return navCycles.filter(cycle => cycle.basePath && pathname.startsWith(cycle.basePath)).map(cycle => cycle.id);
+    const activeCycles = navCycles.filter(cycle => cycle.basePath && pathname.startsWith(cycle.basePath)).map(cycle => cycle.id);
+    if (adminNavCycle.basePath && pathname.startsWith(adminNavCycle.basePath)) {
+      activeCycles.push(adminNavCycle.id);
+    }
+    return activeCycles;
   };
 
   return (
@@ -164,7 +182,7 @@ export function MainNav() {
       </SidebarMenu>
 
       <Accordion type="multiple" defaultValue={getDefaultAccordionValues()} className="w-full">
-        {navCycles.map((cycle) => (
+        {[...navCycles, adminNavCycle].map((cycle) => (
           <AccordionItem value={cycle.id} key={cycle.id} className="border-none">
             <AccordionTrigger className="px-2 py-1.5 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:no-underline [&[data-state=open]>svg]:text-sidebar-accent-foreground">
               <div className="flex items-center gap-2">
@@ -186,7 +204,6 @@ export function MainNav() {
                         disabled={item.disabled}
                         aria-disabled={item.disabled}
                       >
-                        {/* No icon for sub-items for cleaner look, can be added if needed */}
                         <span className="truncate">{item.title}</span>
                       </SidebarMenuButton>
                     </Link>
