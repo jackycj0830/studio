@@ -9,7 +9,8 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 -   **Sales Management**: Module for managing customer data, orders, and sales reports across various sub-functions like Quotations, Sales Orders, Sales Invoices, and Customer Receivables.
     -   **Interactive Sales Order Creation**: Users can navigate to "Sales Order" under "Sales Cycle", view a mock list of orders, and click "Add New Order" to access a form. The form allows input for customer name, order date, product details, quantity, and price. A **mock save** functionality is implemented using Next.js Server Actions, which validates input and logs data to the console, simulating a successful save without database persistence.
 -   **Procurement Tracking (Purchasing Cycle)**: Module for managing suppliers, purchase orders, and receiving, including Purchase Requests, Purchase Orders, Receiving Slips, Goods Receipt Notes, and Vendor Payments.
-    -   **Interactive Purchase Request Creation**: Users can navigate to "Purchase Request" under "Purchasing Cycle" to access a form. The form allows input for requester name, department, request date, item details, quantity, unit, reason, and an optional suggested supplier. A **mock save** functionality is implemented using Next.js Server Actions, validating input and logging data to the console.
+    -   **Interactive Purchase Request Creation**: Users can navigate to "Purchase Request" under "Purchasing Cycle", view a mock list of requests, and click "Add New Purchase Request" to access a form. The form allows input for requester name, department, request date, item details, quantity, unit, reason, and an optional suggested supplier. A **mock save** functionality is implemented using Next.js Server Actions, validating input and logging data to the console.
+    -   **Interactive Purchase Order Creation**: Users can navigate to "Purchase Order" under "Purchasing Cycle", view a mock list of orders, and click "Add New Purchase Order" to access a form. The form allows input for supplier name, order date, item details, quantity, unit price, shipping address, and payment terms. A **mock save** functionality is implemented using Next.js Server Actions, validating input and logging data to the console.
 -   **Production Cycle**: Manages Bill of Materials (BOM), Work Orders, and Production Receipts.
 -   **General Ledger Cycle**: Handles Vouchers, Journals, Main Ledger, and Trial Balances.
 -   **Costing Cycle**: For Cost Calculation and Cost Analysis.
@@ -59,8 +60,12 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 │   │   ├── payroll/             # Payroll Cycle pages
 │   │   ├── production/          # Production Cycle pages
 │   │   ├── purchasing/          # Purchasing Cycle pages
-│   │   │   ├── purchase-request/# New Purchase Request form page
-│   │   │   │   └── page.tsx     
+│   │   │   ├── purchase-request/
+│   │   │   │   ├── new/         # New Purchase Request form page
+│   │   │   │   └── page.tsx     # Purchase Request list page
+│   │   │   ├── purchase-order/
+│   │   │   │   ├── new/         # New Purchase Order form page
+│   │   │   │   └── page.tsx     # Purchase Order list page
 │   │   ├── sales/               # Sales Cycle pages
 │   │   │   ├── sales-order/
 │   │   │   │   ├── new/         # New Sales Order form page
@@ -80,7 +85,6 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 │   │   ├── flows/               # AI flow definitions (e.g., smart-data-discovery.ts)
 │   │   ├── dev.ts               # Genkit development server entry point
 │   │   └── genkit.ts            # Genkit core initialization
-│   ├── locales/                 # (Currently removed, previously for i18n)
 │   └── middleware.ts            # Next.js middleware (currently minimal)
 ├── public/                      # Static assets (e.g., images, fonts if not from CDN)
 ├── .env                         # Environment variables (currently empty)
@@ -175,5 +179,3 @@ These are configured in `src/app/globals.css` using HSL CSS variables for ShadCN
 ## Contributing
 
 Details on contributing to the project will be added here.
-
-    

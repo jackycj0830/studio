@@ -167,4 +167,59 @@ export async function handleCreatePurchaseRequest(
   };
 }
 
-    
+// Purchase Order Action
+const CreatePurchaseOrderSchema = z.object({
+  supplierName: z.string().min(2, "Supplier name must be at least 2 characters.").max(100),
+  orderDate: z.string().refine((date) => !isNaN(Date.parse(date)), { message: "Invalid date format" }),
+  itemName: z.string().min(2, "Item name/description must be at least 2 characters.").max(100),
+  quantity: z.coerce.number().min(1, "Quantity must be at least 1."),
+  unitPrice: z.coerce.number().min(0.01, "Unit price must be greater than 0."),
+  shippingAddress: z.string().min(5, "Shipping address is too short").max(200).optional().or(z.literal('')),
+  paymentTerms: z.string().max(50).optional().or(z.literal('')),
+});
+
+export interface CreatePurchaseOrderFormState {
+  message: string | null;
+  errors?: {
+    supplierName?: string[];
+    orderDate?: string[];
+    itemName?: string[];
+    quantity?: string[];
+    unitPrice?: string[];
+    shippingAddress?: string[];
+    paymentTerms?: string[];
+    _form?: string[];
+  };
+}
+
+export async function handleCreatePurchaseOrder(
+  prevState: CreatePurchaseOrderFormState,
+  formData: FormData
+): Promise<CreatePurchaseOrderFormState> {
+  const rawFormData = {
+    supplierName: formData.get('supplierName'),
+    orderDate: formData.get('orderDate'),
+    itemName: formData.get('itemName'),
+    quantity: formData.get('quantity'),
+    unitPrice: formData.get('unitPrice'),
+    shippingAddress: formData.get('shippingAddress') || "", // Ensure empty string if null/undefined
+    paymentTerms: formData.get('paymentTerms') || "", // Ensure empty string if null/undefined
+  };
+
+  const validatedFields = CreatePurchaseOrderSchema.safeParse(rawFormData);
+
+  if (!validatedFields.success) {
+    console.log("Validation errors (Purchase Order):", validatedFields.error.flatten().fieldErrors);
+    return {
+      message: "Validation failed. Please correct the errors below.",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  console.log("Mock saving Purchase Order:", validatedFields.data);
+
+  return {
+    message: "Purchase order created successfully (mock).",
+    errors: {},
+  };
+}

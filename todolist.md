@@ -29,11 +29,11 @@
 ## Phase 4: Core Module Implementation (Ongoing)
 
 ### Purchasing Cycle
-- [x] **Purchase Request**: UI (Form), Data Model (form schema), Logic (Mock Save implemented)
-- [ ] **Purchase Order**: UI, Data Model, Logic (Partially from old procurement)
+- [x] **Purchase Request**: UI (List & New Form), Data Model (form schema), Logic (Mock Save implemented)
+- [x] **Purchase Order**: UI (List & New Form), Data Model (form schema), Logic (Mock Save implemented)
 - [ ] **Receiving Slip**: UI, Data Model, Logic
 - [ ] **Goods Receipt Note**: UI, Data Model, Logic
-- [ ] **Vendor Payments**: UI, Data Model, Logic
+- [ ] **Vendor Payments**: UI, DataModel, Logic
 
 ### Sales Cycle
 - [ ] **Quotation**: UI, Data Model, Logic
@@ -84,5 +84,3 @@
 - Dashboard customizations with dynamic charts.
 - Advanced reporting features with filtering and export.
 - Mobile responsiveness enhancements for complex tables/forms.
-
-    

@@ -37,8 +37,8 @@ graph TD
 
 ### 3.2. Core ERP Modules (as per navigation)
     - Purchasing Cycle
-        - **Purchase Request** (Interactive form with mock save)
-        - Purchase Order
+        - **Purchase Request** (Interactive list, New Request Form with mock save)
+        - **Purchase Order** (Interactive list, New Order Form with mock save)
         - Receiving Slip
         - Goods Receipt Note
         - Vendor Payments
@@ -101,8 +101,10 @@ erDiagram
     PRODUCT ||--|{ SALES_ORDER_LINE : ordered_in
     PRODUCT ||--o{ BOM_ITEM : part_of_BOM
     SUPPLIER ||--o{ PURCHASE_ORDER : supplies_for
+    PURCHASE_ORDER ||--|{ PURCHASE_ORDER_LINE : contains
+    ITEM ||--|{ PURCHASE_ORDER_LINE : ordered_in
 ```
-*Note: This ERD is a high-level placeholder and includes Purchase Request entities.*
+*Note: This ERD is a high-level placeholder and includes Purchase Request and Purchase Order entities.*
 
 ## 6. Use Case Diagrams / Scenarios
 
@@ -168,22 +170,49 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant User
-    participant PurchaseRequestPage (Form)
+    participant PurchaseRequestListPage
+    participant NewPurchaseRequestPage (Form)
     participant ServerAction (handleCreatePurchaseRequest)
     participant Browser (Console)
 
-    User->>PurchaseRequestPage (Form): Navigates to Purchase Request form
-    User->>PurchaseRequestPage (Form): Fills in request details
-    User->>PurchaseRequestPage (Form): Clicks "Submit Purchase Request"
-    PurchaseRequestPage (Form)->>ServerAction (handleCreatePurchaseRequest): Submits form data
+    User->>PurchaseRequestListPage: Clicks "Add New Purchase Request"
+    PurchaseRequestListPage->>NewPurchaseRequestPage (Form): Navigates to form
+    User->>NewPurchaseRequestPage (Form): Fills in request details
+    User->>NewPurchaseRequestPage (Form): Clicks "Submit Purchase Request"
+    NewPurchaseRequestPage (Form)->>ServerAction (handleCreatePurchaseRequest): Submits form data
     ServerAction (handleCreatePurchaseRequest)->>ServerAction (handleCreatePurchaseRequest): Validates data (Zod)
     alt Validation Success
         ServerAction (handleCreatePurchaseRequest)->>Browser (Console): Logs "Mock saving Purchase Request: {data}"
-        ServerAction (handleCreatePurchaseRequest)-->>PurchaseRequestPage (Form): Returns success message
-        PurchaseRequestPage (Form)->>User: Displays success toast, resets form
+        ServerAction (handleCreatePurchaseRequest)-->>NewPurchaseRequestPage (Form): Returns success message
+        NewPurchaseRequestPage (Form)->>User: Displays success toast, resets form
     else Validation Failure
-        ServerAction (handleCreatePurchaseRequest)-->>PurchaseRequestPage (Form): Returns error messages
-        PurchaseRequestPage (Form)->>User: Displays validation errors in form
+        ServerAction (handleCreatePurchaseRequest)-->>NewPurchaseRequestPage (Form): Returns error messages
+        NewPurchaseRequestPage (Form)->>User: Displays validation errors in form
+    end
+```
+
+### 6.5. Create New Purchase Order (Mock Save)
+```mermaid
+sequenceDiagram
+    participant User
+    participant PurchaseOrderListPage
+    participant NewPurchaseOrderPage (Form)
+    participant ServerAction (handleCreatePurchaseOrder)
+    participant Browser (Console)
+
+    User->>PurchaseOrderListPage: Clicks "Add New Purchase Order"
+    PurchaseOrderListPage->>NewPurchaseOrderPage (Form): Navigates to form
+    User->>NewPurchaseOrderPage (Form): Fills in order details
+    User->>NewPurchaseOrderPage (Form): Clicks "Save Purchase Order"
+    NewPurchaseOrderPage (Form)->>ServerAction (handleCreatePurchaseOrder): Submits form data
+    ServerAction (handleCreatePurchaseOrder)->>ServerAction (handleCreatePurchaseOrder): Validates data (Zod)
+    alt Validation Success
+        ServerAction (handleCreatePurchaseOrder)->>Browser (Console): Logs "Mock saving Purchase Order: {data}"
+        ServerAction (handleCreatePurchaseOrder)-->>NewPurchaseOrderPage (Form): Returns success message
+        NewPurchaseOrderPage (Form)->>User: Displays success toast, resets form
+    else Validation Failure
+        ServerAction (handleCreatePurchaseOrder)-->>NewPurchaseOrderPage (Form): Returns error messages
+        NewPurchaseOrderPage (Form)->>User: Displays validation errors in form
     end
 ```
 
@@ -201,5 +230,3 @@ sequenceDiagram
 - Complete implementation of all features for each ERP module page.
 - Unit and Integration Tests.
 - Internationalization (i18n) - if revisited.
-
-    
