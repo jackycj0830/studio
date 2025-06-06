@@ -37,7 +37,7 @@ graph TD
 
 ### 3.2. Core ERP Modules (as per navigation)
     - Purchasing Cycle
-        - Purchase Request
+        - **Purchase Request** (Interactive form with mock save)
         - Purchase Order
         - Receiving Slip
         - Goods Receipt Note
@@ -93,13 +93,16 @@ graph TD
 (Placeholder for detailed ERD. Initial focus on individual module data structures as needed for forms.)
 ```mermaid
 erDiagram
+    USER ||--o{ PURCHASE_REQUEST : creates
+    PURCHASE_REQUEST ||--|{ PURCHASE_REQUEST_LINE : contains
+    ITEM ||--|{ PURCHASE_REQUEST_LINE : requested_in
     CUSTOMER ||--o{ SALES_ORDER : places
     SALES_ORDER ||--|{ SALES_ORDER_LINE : contains
     PRODUCT ||--|{ SALES_ORDER_LINE : ordered_in
     PRODUCT ||--o{ BOM_ITEM : part_of_BOM
     SUPPLIER ||--o{ PURCHASE_ORDER : supplies_for
 ```
-*Note: This ERD is a high-level placeholder.*
+*Note: This ERD is a high-level placeholder and includes Purchase Request entities.*
 
 ## 6. Use Case Diagrams / Scenarios
 
@@ -161,6 +164,29 @@ sequenceDiagram
     end
 ```
 
+### 6.4. Create New Purchase Request (Mock Save)
+```mermaid
+sequenceDiagram
+    participant User
+    participant PurchaseRequestPage (Form)
+    participant ServerAction (handleCreatePurchaseRequest)
+    participant Browser (Console)
+
+    User->>PurchaseRequestPage (Form): Navigates to Purchase Request form
+    User->>PurchaseRequestPage (Form): Fills in request details
+    User->>PurchaseRequestPage (Form): Clicks "Submit Purchase Request"
+    PurchaseRequestPage (Form)->>ServerAction (handleCreatePurchaseRequest): Submits form data
+    ServerAction (handleCreatePurchaseRequest)->>ServerAction (handleCreatePurchaseRequest): Validates data (Zod)
+    alt Validation Success
+        ServerAction (handleCreatePurchaseRequest)->>Browser (Console): Logs "Mock saving Purchase Request: {data}"
+        ServerAction (handleCreatePurchaseRequest)-->>PurchaseRequestPage (Form): Returns success message
+        PurchaseRequestPage (Form)->>User: Displays success toast, resets form
+    else Validation Failure
+        ServerAction (handleCreatePurchaseRequest)-->>PurchaseRequestPage (Form): Returns error messages
+        PurchaseRequestPage (Form)->>User: Displays validation errors in form
+    end
+```
+
 ## 7. UI/UX Design
 - Primary color: Blue (`#4681C4`)
 - Background color: Light gray (`#F0F4F8`)
@@ -175,4 +201,5 @@ sequenceDiagram
 - Complete implementation of all features for each ERP module page.
 - Unit and Integration Tests.
 - Internationalization (i18n) - if revisited.
-```
+
+    

@@ -73,7 +73,7 @@ export interface CreateSalesOrderFormState {
     productName?: string[];
     quantity?: string[];
     price?: string[];
-    _form?: string[]; // For form-level errors
+    _form?: string[]; 
   };
 }
 
@@ -92,29 +92,79 @@ export async function handleCreateSalesOrder(
   const validatedFields = CreateSalesOrderSchema.safeParse(rawFormData);
 
   if (!validatedFields.success) {
-    console.log("Validation errors:", validatedFields.error.flatten().fieldErrors);
+    console.log("Validation errors (Sales Order):", validatedFields.error.flatten().fieldErrors);
     return {
       message: "Validation failed. Please correct the errors below.",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  // Simulate saving the data
   console.log("Mock saving Sales Order:", validatedFields.data);
-
-  // In a real application, you would save to a database here.
-  // For now, we just simulate success.
   
-  // Simulate a potential server-side error (uncomment to test)
-  // if (validatedFields.data.customerName === "ErrorTest") {
-  //   return {
-  //     message: null,
-  //     errors: { _form: ["Simulated server error during save."] },
-  //   };
-  // }
-
   return {
     message: "Sales order created successfully (mock).",
-    errors: {}, // Clear errors on success
+    errors: {}, 
   };
 }
+
+// Purchase Request Action
+const CreatePurchaseRequestSchema = z.object({
+  requestedBy: z.string().min(2, "Requester name must be at least 2 characters.").max(100),
+  department: z.string().min(2, "Department name must be at least 2 characters.").max(50),
+  requestDate: z.string().refine((date) => !isNaN(Date.parse(date)), { message: "Invalid date format" }),
+  itemName: z.string().min(2, "Item name must be at least 2 characters.").max(100),
+  quantity: z.coerce.number().min(1, "Quantity must be at least 1."),
+  unit: z.string().min(1, "Unit is required.").max(20),
+  reason: z.string().min(5, "Reason must be at least 5 characters.").max(500),
+  suggestedSupplier: z.string().max(100).optional(),
+});
+
+export interface CreatePurchaseRequestFormState {
+  message: string | null;
+  errors?: {
+    requestedBy?: string[];
+    department?: string[];
+    requestDate?: string[];
+    itemName?: string[];
+    quantity?: string[];
+    unit?: string[];
+    reason?: string[];
+    suggestedSupplier?: string[];
+    _form?: string[];
+  };
+}
+
+export async function handleCreatePurchaseRequest(
+  prevState: CreatePurchaseRequestFormState,
+  formData: FormData
+): Promise<CreatePurchaseRequestFormState> {
+  const rawFormData = {
+    requestedBy: formData.get('requestedBy'),
+    department: formData.get('department'),
+    requestDate: formData.get('requestDate'),
+    itemName: formData.get('itemName'),
+    quantity: formData.get('quantity'),
+    unit: formData.get('unit'),
+    reason: formData.get('reason'),
+    suggestedSupplier: formData.get('suggestedSupplier'),
+  };
+
+  const validatedFields = CreatePurchaseRequestSchema.safeParse(rawFormData);
+
+  if (!validatedFields.success) {
+    console.log("Validation errors (Purchase Request):", validatedFields.error.flatten().fieldErrors);
+    return {
+      message: "Validation failed. Please correct the errors below.",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  console.log("Mock saving Purchase Request:", validatedFields.data);
+
+  return {
+    message: "Purchase request created successfully (mock).",
+    errors: {},
+  };
+}
+
+    

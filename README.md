@@ -7,8 +7,9 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 
 -   **Dashboard Overview**: Displays key ERP metrics such as sales, inventory, and receivables.
 -   **Sales Management**: Module for managing customer data, orders, and sales reports across various sub-functions like Quotations, Sales Orders, Sales Invoices, and Customer Receivables.
-    -   **Interactive Sales Order Creation**: Users can now navigate to "Sales Order" under "Sales Cycle", view a mock list of orders, and click "Add New Order" to access a form. The form allows input for customer name, order date, product details, quantity, and price. A **mock save** functionality is implemented using Next.js Server Actions, which validates input and logs data to the console, simulating a successful save without database persistence.
+    -   **Interactive Sales Order Creation**: Users can navigate to "Sales Order" under "Sales Cycle", view a mock list of orders, and click "Add New Order" to access a form. The form allows input for customer name, order date, product details, quantity, and price. A **mock save** functionality is implemented using Next.js Server Actions, which validates input and logs data to the console, simulating a successful save without database persistence.
 -   **Procurement Tracking (Purchasing Cycle)**: Module for managing suppliers, purchase orders, and receiving, including Purchase Requests, Purchase Orders, Receiving Slips, Goods Receipt Notes, and Vendor Payments.
+    -   **Interactive Purchase Request Creation**: Users can navigate to "Purchase Request" under "Purchasing Cycle" to access a form. The form allows input for requester name, department, request date, item details, quantity, unit, reason, and an optional suggested supplier. A **mock save** functionality is implemented using Next.js Server Actions, validating input and logging data to the console.
 -   **Production Cycle**: Manages Bill of Materials (BOM), Work Orders, and Production Receipts.
 -   **General Ledger Cycle**: Handles Vouchers, Journals, Main Ledger, and Trial Balances.
 -   **Costing Cycle**: For Cost Calculation and Cost Analysis.
@@ -58,6 +59,8 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 │   │   ├── payroll/             # Payroll Cycle pages
 │   │   ├── production/          # Production Cycle pages
 │   │   ├── purchasing/          # Purchasing Cycle pages
+│   │   │   ├── purchase-request/# New Purchase Request form page
+│   │   │   │   └── page.tsx     
 │   │   ├── sales/               # Sales Cycle pages
 │   │   │   ├── sales-order/
 │   │   │   │   ├── new/         # New Sales Order form page
@@ -172,4 +175,5 @@ These are configured in `src/app/globals.css` using HSL CSS variables for ShadCN
 ## Contributing
 
 Details on contributing to the project will be added here.
-```
+
+    
