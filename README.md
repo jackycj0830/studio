@@ -7,6 +7,7 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 
 -   **Dashboard Overview**: Displays key ERP metrics such as sales, inventory, and receivables.
 -   **Sales Management**: Module for managing customer data, orders, and sales reports across various sub-functions like Quotations, Sales Orders, Sales Invoices, and Customer Receivables.
+    -   **Interactive Sales Order Creation**: Users can now navigate to "Sales Order" under "Sales Cycle", view a mock list of orders, and click "Add New Order" to access a form. The form allows input for customer name, order date, product details, quantity, and price. A **mock save** functionality is implemented using Next.js Server Actions, which validates input and logs data to the console, simulating a successful save without database persistence.
 -   **Procurement Tracking (Purchasing Cycle)**: Module for managing suppliers, purchase orders, and receiving, including Purchase Requests, Purchase Orders, Receiving Slips, Goods Receipt Notes, and Vendor Payments.
 -   **Production Cycle**: Manages Bill of Materials (BOM), Work Orders, and Production Receipts.
 -   **General Ledger Cycle**: Handles Vouchers, Journals, Main Ledger, and Trial Balances.
@@ -15,7 +16,9 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 -   **Fixed Assets Cycle**: Tracks Asset Management and Depreciation Calculation.
 -   **Cash Flow Cycle**: Monitors Bank Transactions and Cash Flow Statements.
 -   **Smart Data Discovery**: A smart search feature leveraging generative AI to suggest appropriate reports or data based on user queries, acting as an assistant for ERP usage.
--   **User Authentication**: Secure login system to protect application data.
+-   **User Authentication**: Secure login system (`admin`/`123456`) to protect application data.
+-   **Administrator Document Management**: View `README.md`, `spec.md`, `todolist.md` within the app. (Editing functionality is planned).
+-   **Administrator User Management**: View mock user accounts and access a form to (simulate) adding new users. Permission settings page is a placeholder.
 
 ## Tech Stack
 
@@ -32,8 +35,9 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
     -   [Genkit (Firebase Genkit)](https://firebase.google.com/docs/genkit)
 -   **State Management**:
     -   React Context API (for Authentication)
--   **Form Handling**:
-    -   React Hook Form (used in Smart Search, can be extended)
+    -   React Hook Form (for form handling)
+-   **Markdown Rendering**:
+    -   `react-markdown` with `remark-gfm`
 
 ## File Structure Overview
 
@@ -41,6 +45,11 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 /
 ├── src/
 │   ├── app/                     # Next.js App Router: Pages and layouts
+│   │   ├── admin/               # Administrator specific pages
+│   │   │   ├── accounts/        # View user accounts
+│   │   │   ├── add-account/     # Add new user account form
+│   │   │   ├── permissions/     # Permissions management (placeholder)
+│   │   │   └── view-document/[documentName]/ # View markdown documents
 │   │   ├── cash-flow/           # Cash Flow Cycle pages
 │   │   ├── costing/             # Costing Cycle pages
 │   │   ├── fixed-assets/        # Fixed Assets Cycle pages
@@ -50,6 +59,9 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 │   │   ├── production/          # Production Cycle pages
 │   │   ├── purchasing/          # Purchasing Cycle pages
 │   │   ├── sales/               # Sales Cycle pages
+│   │   │   ├── sales-order/
+│   │   │   │   ├── new/         # New Sales Order form page
+│   │   │   │   └── page.tsx     # Sales Order list page
 │   │   ├── smart-search/        # Smart Search page
 │   │   ├── globals.css          # Global styles and ShadCN theme
 │   │   ├── layout.tsx           # Root layout
@@ -74,7 +86,9 @@ ERP Central is a comprehensive, web-based Enterprise Resource Planning (ERP) sys
 ├── package.json                 # Project dependencies and scripts
 ├── tailwind.config.ts           # Tailwind CSS configuration
 ├── tsconfig.json                # TypeScript configuration
-└── README.md                    # This file
+├── README.md                    # This file
+├── spec.md                      # Project specification document
+└── todolist.md                  # Project task list
 ```
 
 ## Getting Started

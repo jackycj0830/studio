@@ -1,3 +1,4 @@
+
 # ERP Central - Task List
 
 ## Phase 1: Initial Setup & Core Structure (Completed)
@@ -8,14 +9,17 @@
 - [x] Basic Client-Side Authentication (Login/Logout)
 - [x] Readme.md initial draft
 
-## Phase 2: Admin Document Management
+## Phase 2: Admin Document & User Management (Partially Completed)
 - [x] Add `react-markdown` for displaying markdown.
 - [x] Create `spec.md` and `todolist.md` placeholders.
 - [x] Navigation for Admin Document Viewing.
 - [x] Implement viewing of `README.md`, `spec.md`, `todolist.md`.
+- [x] Implement Admin User Management UI (View Accounts, Add Account Form - mock).
+- [x] Implement Admin Permissions Page (Placeholder).
 - [ ] Implement editing functionality for `README.md`.
 - [ ] Implement editing functionality for `spec.md`.
 - [ ] Implement editing functionality for `todolist.md`.
+- [ ] Implement backend logic for User Account creation/management.
 
 ## Phase 3: Smart Search (Genkit Integration)
 - [x] Setup Genkit.
@@ -33,7 +37,7 @@
 
 ### Sales Cycle
 - [ ] **Quotation**: UI, Data Model, Logic
-- [ ] **Sales Order**: UI, Data Model, Logic (Partially from old sales)
+- [x] **Sales Order**: UI (List & New Form), Data Model (form schema), Logic (Mock Save implemented)
 - [ ] **Sales Invoice**: UI, Data Model, Logic
 - [ ] **Customer Receivables**: UI, Data Model, Logic
 
@@ -66,18 +70,18 @@
 
 ## Phase 5: Enhancements & Refinements
 - [ ] Implement robust Role-Based Access Control (RBAC).
-- [ ] Database integration for all modules.
-- [ ] Comprehensive error handling and validation.
+- [ ] **Database integration for all modules (critical for full functionality).**
+- [ ] Comprehensive error handling and validation across all modules.
 - [ ] Unit and Integration Tests.
 - [ ] Improve UI/UX based on feedback.
-- [ ] Internationalization (i18n) - if revisited.
 - [ ] Deployment optimization.
-- [ ] Update `spec.md` with detailed flowcharts and sequence diagrams for each module.
+- [ ] Update `spec.md` with detailed flowcharts and sequence diagrams for each implemented module feature.
 
 ## Known Issues / Bugs
 - (List any known issues here)
 
 ## Future Ideas
-- Dashboard customizations.
-- Advanced reporting features.
-- Mobile responsiveness enhancements.
+- Dashboard customizations with dynamic charts.
+- Advanced reporting features with filtering and export.
+- Mobile responsiveness enhancements for complex tables/forms.
+```
